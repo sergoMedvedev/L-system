@@ -1,4 +1,5 @@
 import drawSvg as draw
+import math
 
 
 class State:
@@ -8,79 +9,70 @@ class State:
         self.direction = direction
 
 
-class Token:
+class Token():
 
-    def __init__(self, final_list):
-        self.final_list = final_list
+    def __init__(self,final_list):
+        self.list=final_list
+
+
+
+
+
 
 
     def sorted_list(self):
         state = State()
         self.svg_views = []
-        for tokens in self.final_list:
+        for tokens in self.list:
             if tokens == 'RotateToken(-90)':
-                self.angla = int('-90')
-                self.token = RotaitToken(self.angla)
-                self.svg_views.append(self.token.get_svg_view(state,self.angla))
+                angla = math.pi / -2
+                self.token = RotaitToken(angla)
+                self.svg_views.append(self.token.get_svg_view(state, angla))
             elif tokens == 'RotateToken(90)':
-                self.angla = int(90)
-                self.token = RotaitToken(self.angla)
-                self.svg_views.append(self.token.get_svg_view(state,self.angla))
+                angla = math.pi / 2
+                self.token = RotaitToken(angla)
+                self.svg_views.append(self.token.get_svg_view(state, angla))
             elif tokens == 'MoveToken':
-                self.angla = 0
-                self.token = MoveToken(self.angla)
-                self.svg_views.append(self.token.get_svg_view(state))
+                angla = 0
+                self.token = MoveToken(angla)
+                self.svg_views.append(self.token.get_svg_view(state, angla))
 
 
 class MoveToken(Token, State):
 
-    def get_svg_view(self, state):
+    def get_svg_view(self, state, angla=0):
         old_x = state.x
         old_y = state.y
-        if state.direction == 0:
-            state.x += 10
-        elif state.direction == 90:
-            state.y += 10
-        elif state.direction == -90:
-            state.y -= 10
-        elif (state.direction == 180) or (state.direction == -180):
-            state.x -= 10
+        state.x = state.x + 10 * math.cos(state.direction)
+        state.y = state.y + 10 * math.sin(state.direction)
+        # print(state.x,' ',state.y)
+
+        # if state.direction == 0:
+        #    state.x += 10
+        # elif state.direction == 90:
+        #    state.y += 10
+        # elif state.direction == -90:
+        #    state.y -= 10
+        # elif (state.direction == 180) or (state.direction == -180):
+        #    state.x -= 10
         return [
             draw.Line(
                 old_x, old_y,
-                state.x, state.y
+                state.x, state.y,
+                stroke='black'
+
             )
         ]
 
 
 class RotaitToken(Token):
 
-    def get_svg_view(self, state,angla):
-        if angla == 90:
-            state.direction+=90
+    def get_svg_view(self, state, angla):
+
+        if angla == math.pi / 2:
+            state.direction += math.pi / 2
+            # print(state.x,' ',state.y,' ',state.direction)
         else:
-            state.direction-=90
+            state.direction += math.pi / -2
+            # print(state.x,' ',state.y,' ',state.direction)
         return 0
-
-
-#final_list = ['MoveToken', 'RotateToken(-90)', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'MoveToken',
-#              'RotateToken(90)', 'MoveToken',
-#              'MoveToken', 'RotateToken(90)', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'RotateToken(-90)',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken',
-#              'RotateToken(90)', 'MoveToken', 'RotateToken(-90)', 'MoveToken', 'MoveToken', 'RotateToken(90)',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'MoveToken', 'RotateToken(90)',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'RotateToken(90)', 'MoveToken',
-#              'RotateToken(-90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken',
-#              'RotateToken(90)', 'MoveToken', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken',
-#              'RotateToken(90)', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'RotateToken(-90)', 'MoveToken',
-#              'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken',
-#              'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken',
-#              'RotateToken(90)', 'MoveToken', 'RotateToken(-90)', 'MoveToken', 'MoveToken', 'RotateToken(90)',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'MoveToken', 'MoveToken', 'RotateToken(90)',
-#              'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken', 'RotateToken(90)', 'MoveToken',
-#              'RotateToken(-90)', 'MoveToken', 'MoveToken', 'RotateToken(90)', 'MoveToken']
-#
-#first_test = Token(final_list)
-#first_test.sorted_list()
-#print(first_test.svg_views)

@@ -6,7 +6,7 @@ class Iterator:
         self.axiom = axiom
         self.rules = rules
         self.repeat = replay
-        self.axiom_out=''
+        self.axiom_out = ''
 
     # получаем на входе оксиому и изменям ее n-ое количество раз.
     def get_final(self):
@@ -23,9 +23,10 @@ class Iterator:
             axiom = ''
             for letter in out:
                 axiom += letter
-        self.axiom_out=axiom
+        self.axiom_out = axiom
         return self.axiom_out
 
-# нашел некоторые недочеты. все работает исправно.
+
+
 
 
