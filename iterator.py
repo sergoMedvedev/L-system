@@ -1,33 +1,31 @@
 # Входные данные : Аксиома, правила, количество повторений
 # Количество повторений это replay
-class iterator:
+class Iterator:
 
-    def __init__(self,axiom,rules,replay):
+    def __init__(self, axiom, rules, replay):
         self.axiom = axiom
         self.rules = rules
-        self.replay=replay
+        self.repeat = replay
+        self.axiom_out=''
 
-
+    # получаем на входе оксиому и изменям ее n-ое количество раз.
     def get_final(self):
-        out=[]
-        for number in range(1,self.replay+1):
-            for tokens in self.axiom:
+        out = []
+        axiom = self.axiom
+        for number in range(1, self.repeat + 1):
+            for tokens in axiom:
                 if tokens == 'F':
                     out.append(self.rules[tokens])
-                    continue
                 elif tokens == '+':
                     out.append(self.rules[tokens])
-                    continue
                 elif tokens == '-':
                     out.append(self.rules[tokens])
-                    continue
-        self.axiom=''
-        for i in out:
-            self.axiom+=i
+            axiom = ''
+            for letter in out:
+                axiom += letter
+        self.axiom_out=axiom
+        return self.axiom_out
 
-        return print(self.axiom)
-
-
-
+# нашел некоторые недочеты. все работает исправно.
 
 
