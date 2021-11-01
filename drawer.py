@@ -14,8 +14,8 @@ class Drawer:
         return list
 
     def draw(self, svg_view):
-        d = draw.Drawing(100, 100, origin=(0, 0), displayInline=False)
+        d = draw.Drawing(750, 750, origin=(-10, -200), displayInline=False)
         for draww in svg_view:
             d.append(draww[0])
-        d.setPixelScale(5)
-        d.saveSvg('out_file')
+        d.setPixelScale(200)
+        d.saveSvg('out_file.svg')

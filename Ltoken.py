@@ -43,8 +43,8 @@ class MoveToken(Token, State):
     def get_svg_view(self, state, angla=0):
         old_x = state.x
         old_y = state.y
-        state.x = state.x + 10 * math.cos(state.direction)
-        state.y = state.y + 10 * math.sin(state.direction)
+        state.x = state.x + 25 * math.cos(state.direction)
+        state.y = state.y + 25 * math.sin(state.direction)
         # print(state.x,' ',state.y)
 
         # if state.direction == 0:
