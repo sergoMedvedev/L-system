@@ -8,65 +8,40 @@ class Iterator:
         self.repeat = replay
         self.axiom_out = ''
 
-    # получаем на входе оксиому и изменям ее n-ое количество раз.
     def get_final(self):
-        out = ''
-        axiom = self.axiom
-        self.axiom=''
-        s=1
+        step_axiom = ''
+
+        def variables_tokens(tokens, step_axiom):
+            if (tokens == 'X') and (tokens in self.rules):
+                step_axiom += self.rules[tokens]
+            elif (tokens == 'Y') and (tokens in self.rules):
+                step_axiom += self.rules[tokens]
+            return step_axiom
+
+        def const_tokens(tokens, step_axiom):
+            if tokens == '+':
+                step_axiom += tokens
+            elif tokens == '-':
+                step_axiom += tokens
+            elif tokens == 'F':
+                step_axiom += tokens
+            return step_axiom
+
         for number in range(1, self.repeat + 1):
-            for tokens in axiom:
-                if tokens == 'F':
-                    s+=1
-                    out+=tokens
-                    if 'F' in self.rules:
-                        out=out[:-1]
-                        out+=self.rules[tokens]
-                        if s+self.repeat+1 > len(axiom):  # тут проблема
-                            axiom=out
-                            out=''
-                            s=1
-                            break
-                        else:
-                            continue
-                    else:
-                        out+=tokens
-                        continue
+            for tokens in self.axiom:
+                if tokens == 'X':
+                    step_axiom=variables_tokens(tokens, step_axiom)
+                elif tokens == 'Y':
+                    step_axiom=variables_tokens(tokens, step_axiom)
                 elif tokens == '+':
-                    out+=tokens
-                    if '+' in self.rules:
-                        out=out[:-1]
-                        out+=self.rules[tokens]
-                        if s+self.repeat+1 > len(axiom):  # тут проблема
-                            axiom=out
-                            out=''
-                            s=1
-                            break
-                        else:
-                            continue
+                    step_axiom=const_tokens(tokens, step_axiom)
+                elif tokens == 'F':
+                    step_axiom=const_tokens(tokens, step_axiom)
                 elif tokens == '-':
-                    out+=tokens
-                    if '-' in self.rules:
-                        out=out[:-1]
-                        out+=self.rules[tokens]
-                        if s+self.repeat+1 > len(axiom):  # тут проблема
-                            axiom=out
-                            out=''
-                            s=1
-                            break
-                        else:
-                            continue
-        if self.repeat == 1:
-            self.axiom_out=axiom
-        else:
-            self.axiom_out=out
-        return self.axiom_out
+                    step_axiom=const_tokens(tokens, step_axiom)
+            self.axiom = step_axiom
+            step_axiom = ''
+        return self.axiom
 
 
 
-# не правильная механика замены. надо что бы каждый элемент запенялся по правилу. скорее всего лучше будет это делать через строку. работа со строками лучше.
-
-rules = {'F': 'F+F-F-F+F'}
-axiom = 'F'
-test = Iterator(axiom, rules, 1)
-print(test.get_final())

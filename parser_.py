@@ -17,13 +17,12 @@ class Parser:
                 self.final_list.append(self.rules['+'])
             elif tokens == '-':
                 self.final_list.append(self.rules['-'])
-        print(self.final_list)
         return self.final_list
 
 
 
-#axiom_out='F+F-F-F+F+F+F-F-F+F-F+F-F-F+F-F+F-F-F+F+F+F-F-F+F'
-#rules_for_parser = {'F': 'MoveToken', '+': 'RotateToken(90)', '-': 'RotateToken(-90)'}
-#
+#axiom_out='F-G+F+G-F-GG+F-G+F+G-F+GG-F-G+F+G-F-GGGG-GGGG'
+#rules_for_parser = {'F': 'MoveToken','G': 'MoveToken', '+': 'RotateToken(-120)', '-': 'RotateToken(120)'}
+
 #testt=Parser(axiom_out,rules_for_parser)
 #print(testt.get_result())
