@@ -7,11 +7,11 @@ rules = {'X': 'X+YF+', 'Y': '-FX-Y'}
 axiom = 'FX'
 test = Iterator(axiom, rules,10)
 
-rules_for_parser = {'F': 'MoveToken', '+': 'RotateToken(-90)', '-': 'RotateToken(90)'}
-parser = Parser(test.get_final(), rules_for_parser)
+rules_for_parser = {'F': 'MoveToken', '+': 'RotateToken(+)', '-': 'RotateToken(-)'}
+parser = Parser(test.get_string(), rules_for_parser)
 
 
-tok = Token(parser.get_result())
+tok = Token(parser.get_result(),90)
 #tok.sorted_list()
 tok.sorted_list()
 

@@ -1,6 +1,4 @@
 # пробегаем по строке и определяет с какому классу токин относится символ
-
-
 class Parser:
 
     def __init__(self, axiom, rules):
@@ -21,8 +19,4 @@ class Parser:
 
 
 
-#axiom_out='F-G+F+G-F-GG+F-G+F+G-F+GG-F-G+F+G-F-GGGG-GGGG'
-#rules_for_parser = {'F': 'MoveToken','G': 'MoveToken', '+': 'RotateToken(-120)', '-': 'RotateToken(120)'}
 
-#testt=Parser(axiom_out,rules_for_parser)
-#print(testt.get_result())

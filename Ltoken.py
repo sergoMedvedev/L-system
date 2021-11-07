@@ -11,29 +11,31 @@ class State:
 
 class Token:
 
-    def __init__(self, final_list):
+    def __init__(self, final_list, angel):
         self.list = final_list
+        self.angel = angel
 
     def sorted_list(self):
         state = State()
         self.svg_views = []
         for tokens in self.list:
-            if tokens == 'RotateToken(90)':
-                angla = math.pi / 2
-                self.token = RotaitToken(angla)
-                self.svg_views.append(self.token.get_svg_view(state, angla))
-            elif tokens == 'RotateToken(-90)':
-                angla = math.pi / -2
-                self.token = RotaitToken(angla)
-                self.svg_views.append(self.token.get_svg_view(state, angla))
+            if tokens == 'RotateToken(+)':
+                angel = self.angel / 360 * 2 * math.pi
+                self.token = RotaitToken(self.angel)
+                self.svg_views.append(self.token.get_svg_view(state, angel))
+            elif tokens == 'RotateToken(-)':
+                angel = self.angel / 360 * 2 * math.pi
+                self.token = RotaitToken(angel)
+                self.svg_views.append(self.token.get_svg_view(state, angel))
             elif tokens == 'MoveToken':
-                angla = 0
-                self.token = MoveToken(angla)
-                self.svg_views.append(self.token.get_svg_view(state, angla))
+                self.token = MoveToken()
+                self.svg_views.append(self.token.get_svg_view(state))
 
 
-class MoveToken(Token, State):
-    def get_svg_view(self, state, angla=0):
+class MoveToken:
+
+
+    def get_svg_view(self, state):
         old_x = state.x
         old_y = state.y
         state.x = state.x + 5 * math.cos(state.direction)
@@ -47,14 +49,14 @@ class MoveToken(Token, State):
         ]
 
 
-class RotaitToken(Token):
+class RotaitToken:
 
-    def get_svg_view(self, state, angla):
-        if angla == math.pi / 2:
-            state.direction += math.pi / 2
+    def __init__(self,angel):
+        self.angel=angel
+
+    def get_svg_view(self, state, angel):
+        if angel == angel / 360 * 2 * math.pi:
+            state.direction += angel / 360 * 2 * math.pi
         else:
-            state.direction += math.pi / -2
+            state.direction += angel / 360 * -2 * math.pi
         return 0
-
-
-
