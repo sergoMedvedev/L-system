@@ -11,6 +11,8 @@ class Parser:
         for tokens in self.axiom:
             if tokens == 'F':
                 self.final_list.append(self.rules['F'])
+            elif tokens == 'G':
+                self.final_list.append(self.rules['G'])
             elif tokens == '+':
                 self.final_list.append(self.rules['+'])
             elif tokens == '-':

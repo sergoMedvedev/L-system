@@ -21,10 +21,10 @@ class Token:
         for tokens in self.list:
             if tokens == 'RotateToken(+)':
                 angel = self.angel / 360 * 2 * math.pi
-                self.token = RotaitToken(self.angel)
+                self.token = RotaitToken(angel)
                 self.svg_views.append(self.token.get_svg_view(state, angel))
             elif tokens == 'RotateToken(-)':
-                angel = self.angel / 360 * 2 * math.pi
+                angel = self.angel / 360 * -2 * math.pi
                 self.token = RotaitToken(angel)
                 self.svg_views.append(self.token.get_svg_view(state, angel))
             elif tokens == 'MoveToken':
@@ -33,7 +33,6 @@ class Token:
 
 
 class MoveToken:
-
 
     def get_svg_view(self, state):
         old_x = state.x
@@ -51,12 +50,14 @@ class MoveToken:
 
 class RotaitToken:
 
-    def __init__(self,angel):
-        self.angel=angel
+    def __init__(self, angel):
+        self.angel = angel
 
     def get_svg_view(self, state, angel):
-        if angel == angel / 360 * 2 * math.pi:
-            state.direction += angel / 360 * 2 * math.pi
+        if angel >0:
+            state.direction += self.angel
         else:
-            state.direction += angel / 360 * -2 * math.pi
+            state.direction += self.angel
         return 0
+
+

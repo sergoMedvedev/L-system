@@ -18,10 +18,5 @@ class Iterator:
                     out_list += tokens
                     continue
             out = out_list
-            out_list=''
+            out_list = ''
         return out
-
-
-
-
-

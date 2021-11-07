@@ -13,7 +13,7 @@ class Drawer:
         return list
 
     def draw(self, svg_view):
-        d = draw.Drawing(2000, 2000, origin=(-500, -500), displayInline=False)
+        d = draw.Drawing(5000, 5000, origin=(-2500,-2500 ), displayInline=False)
         for draww in svg_view:
             d.append(draww[0])
         d.setPixelScale(200)
